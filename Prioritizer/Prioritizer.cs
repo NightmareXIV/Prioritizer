@@ -31,7 +31,7 @@ namespace Prioritizer
                 {
                     try
                     {
-                        Thread.Sleep(3000);
+                        Thread.Sleep(2000);
                         if (pi.ClientState?.Condition[Dalamud.Game.ClientState.ConditionFlag.Crafting] == true)
                         {
                             if (proc.PriorityClass == ProcessPriorityClass.Normal) proc.PriorityClass = ProcessPriorityClass.High;
@@ -43,6 +43,7 @@ namespace Prioritizer
                     }
                     catch (Exception) { }
                 }
+                proc.PriorityClass = ProcessPriorityClass.Normal;
             }).Start();
         }
     }
