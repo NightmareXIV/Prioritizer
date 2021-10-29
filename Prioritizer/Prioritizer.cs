@@ -1,4 +1,6 @@
-﻿using Dalamud.Plugin;
+﻿using Dalamud.Game.ClientState.Conditions;
+using Dalamud.Logging;
+using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,18 +14,16 @@ namespace Prioritizer
     class Prioritizer : IDalamudPlugin
     {
         public string Name => "Prioritizer";
-        DalamudPluginInterface pi;
         volatile bool run = true;
 
         public void Dispose()
         {
             run = false;
-            pi.Dispose();
         }
 
         public void Initialize(DalamudPluginInterface pluginInterface)
         {
-            pi = pluginInterface;
+            pluginInterface.Create<Svc>();
             new Thread(() =>
             {
                 var proc = Process.GetCurrentProcess();
@@ -32,16 +32,22 @@ namespace Prioritizer
                     try
                     {
                         Thread.Sleep(2000);
-                        if (pi.ClientState?.Condition[Dalamud.Game.ClientState.ConditionFlag.Crafting] == true)
+                        proc.Refresh();
+                        if (Svc.Condition[ConditionFlag.Crafting] == true)
                         {
                             if (proc.PriorityClass == ProcessPriorityClass.Normal) proc.PriorityClass = ProcessPriorityClass.High;
+                            PluginLog.Debug("Setting priority to High");
                         }
                         else
                         {
                             if (proc.PriorityClass == ProcessPriorityClass.High) proc.PriorityClass = ProcessPriorityClass.Normal;
+                            PluginLog.Debug("Setting priority to Normal");
                         }
                     }
-                    catch (Exception) { }
+                    catch (Exception e) 
+                    {
+                        PluginLog.Error($"Error: {e.Message}\n{e.StackTrace ?? ""}");
+                    }
                 }
                 proc.PriorityClass = ProcessPriorityClass.Normal;
             }).Start();
