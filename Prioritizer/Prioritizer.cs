@@ -21,11 +21,13 @@ namespace Prioritizer
             run = false;
         }
 
-        public void Initialize(DalamudPluginInterface pluginInterface)
+        public Prioritizer(DalamudPluginInterface pluginInterface)
         {
             pluginInterface.Create<Svc>();
+            PluginLog.Debug("Prioritizer loaded");
             new Thread(() =>
             {
+                PluginLog.Debug("Begin");
                 var proc = Process.GetCurrentProcess();
                 while (run)
                 {
@@ -35,13 +37,19 @@ namespace Prioritizer
                         proc.Refresh();
                         if (Svc.Condition[ConditionFlag.Crafting] == true)
                         {
-                            if (proc.PriorityClass == ProcessPriorityClass.Normal) proc.PriorityClass = ProcessPriorityClass.High;
-                            PluginLog.Debug("Setting priority to High");
+                            if (proc.PriorityClass == ProcessPriorityClass.Normal)
+                            {
+                                proc.PriorityClass = ProcessPriorityClass.High;
+                                PluginLog.Debug("Setting priority to High");
+                            }
                         }
                         else
                         {
-                            if (proc.PriorityClass == ProcessPriorityClass.High) proc.PriorityClass = ProcessPriorityClass.Normal;
-                            PluginLog.Debug("Setting priority to Normal");
+                            if (proc.PriorityClass == ProcessPriorityClass.High)
+                            {
+                                proc.PriorityClass = ProcessPriorityClass.Normal;
+                                PluginLog.Debug("Setting priority to Normal");
+                            }
                         }
                     }
                     catch (Exception e) 
@@ -50,6 +58,7 @@ namespace Prioritizer
                     }
                 }
                 proc.PriorityClass = ProcessPriorityClass.Normal;
+                PluginLog.Debug("End");
             }).Start();
         }
     }
