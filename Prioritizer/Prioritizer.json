@@ -2,5 +2,8 @@
   "Name": "Prioritizer",
   "Author": "Eternita",
   "Description": "Prioritizer sets game's priority to high while crafting. No more failed crafts due to random lags while game is minimized.",
-  "RepoUrl": "https://github.com/Eternita-S/Prioritizer"
+  "RepoUrl": "https://github.com/NightmareXIV/Prioritizer",
+  "AssemblyVersion": "9.0.0.0",
+  "DalamudApiLevel": 7,
+  "InternalName": "Prioritizer"
 }
