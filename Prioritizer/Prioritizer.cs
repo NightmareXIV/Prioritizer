@@ -15,6 +15,7 @@ namespace Prioritizer
     {
         public string Name => "Prioritizer";
         volatile bool run = true;
+        volatile bool set = false;
 
         public void Dispose()
         {
@@ -41,14 +42,16 @@ namespace Prioritizer
                             {
                                 proc.PriorityClass = ProcessPriorityClass.High;
                                 PluginLog.Debug("Setting priority to High");
+                                set = true;
                             }
                         }
                         else
                         {
-                            if (proc.PriorityClass == ProcessPriorityClass.High)
+                            if (proc.PriorityClass == ProcessPriorityClass.High && set)
                             {
                                 proc.PriorityClass = ProcessPriorityClass.Normal;
                                 PluginLog.Debug("Setting priority to Normal");
+                                set = false;
                             }
                         }
                     }

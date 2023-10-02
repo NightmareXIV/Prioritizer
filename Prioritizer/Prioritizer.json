@@ -1,9 +1,8 @@
 ﻿{
-  "Name": "Prioritizer",
-  "Author": "NightmareXIV",
-  "Description": "Prioritizer sets game's priority to high while crafting. No more failed crafts due to random lags while game is minimized.",
-  "RepoUrl": "https://github.com/NightmareXIV/Prioritizer",
-  "AssemblyVersion": "9.0.0.0",
-  "DalamudApiLevel": 8,
-  "InternalName": "Prioritizer"
+    "Name": "Prioritizer",
+    "Author": "NightmareXIV",
+    "Description": "Prioritizer sets game's priority to high while crafting. No more failed crafts due to random lags while game is minimized.",
+    "Punchline": "Prioritizer sets game's priority to high while crafting. ",
+    "RepoUrl": "https://github.com/NightmareXIV/Prioritizer",
+    "InternalName": "Prioritizer"
 }
