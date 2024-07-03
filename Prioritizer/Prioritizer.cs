@@ -22,13 +22,13 @@ namespace Prioritizer
             run = false;
         }
 
-        public Prioritizer(DalamudPluginInterface pluginInterface)
+        public Prioritizer(IDalamudPluginInterface pluginInterface)
         {
             pluginInterface.Create<Svc>();
-            PluginLog.Debug("Prioritizer loaded");
+            Svc.Log.Debug("Prioritizer loaded");
             new Thread(() =>
             {
-                PluginLog.Debug("Begin");
+                Svc.Log.Debug("Begin");
                 var proc = Process.GetCurrentProcess();
                 while (run)
                 {
@@ -41,7 +41,7 @@ namespace Prioritizer
                             if (proc.PriorityClass == ProcessPriorityClass.Normal)
                             {
                                 proc.PriorityClass = ProcessPriorityClass.High;
-                                PluginLog.Debug("Setting priority to High");
+                                Svc.Log.Debug("Setting priority to High");
                                 set = true;
                             }
                         }
@@ -50,18 +50,18 @@ namespace Prioritizer
                             if (proc.PriorityClass == ProcessPriorityClass.High && set)
                             {
                                 proc.PriorityClass = ProcessPriorityClass.Normal;
-                                PluginLog.Debug("Setting priority to Normal");
+                                Svc.Log.Debug("Setting priority to Normal");
                                 set = false;
                             }
                         }
                     }
                     catch (Exception e) 
                     {
-                        PluginLog.Error($"Error: {e.Message}\n{e.StackTrace ?? ""}");
+                        Svc.Log.Error($"Error: {e.Message}\n{e.StackTrace ?? ""}");
                     }
                 }
                 proc.PriorityClass = ProcessPriorityClass.Normal;
-                PluginLog.Debug("End");
+                Svc.Log.Debug("End");
             }).Start();
         }
     }
