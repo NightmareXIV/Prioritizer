@@ -1,5 +1,4 @@
 ﻿using Dalamud.Game.ClientState.Conditions;
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using System;
 using System.Collections.Generic;

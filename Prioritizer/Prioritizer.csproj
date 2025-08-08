@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="DalamudPackager" Version="2.1.12" />
+	  <PackageReference Include="DalamudPackager" Version="13.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,10 +37,6 @@
 		</Reference>
 		<Reference Include="Dalamud">
 			<HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ImGui.NET">
-			<HintPath>$(DalamudLibPath)ImGui.NET.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Lumina">
